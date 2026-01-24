@@ -1,6 +1,8 @@
 package com.example.student_list_task_two
 
+import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -29,5 +31,14 @@ class StudentsListActivity : AppCompatActivity() {
 
         val adapter = StudentsAdapter(Model.shared.students)
         binding?.recyclerView?.adapter = adapter
+    }
+
+    fun onAddStudent(view: View) {
+        startActivity(Intent(this, AddStudentActivity::class.java))
+    }
+
+    override fun onResume() {
+        super.onResume()
+        binding?.recyclerView?.adapter?.notifyDataSetChanged()
     }
 }
