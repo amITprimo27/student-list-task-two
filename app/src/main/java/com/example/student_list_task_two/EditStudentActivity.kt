@@ -2,6 +2,7 @@ package com.example.student_list_task_two
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -15,7 +16,7 @@ import com.example.student_list_task_two.models.Student
 
 class EditStudentActivity : AppCompatActivity() {
     var binding: ActivityEditStudentBinding? = null
-    var id: String? = null
+    var student_index: Int = -1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,29 +31,20 @@ class EditStudentActivity : AppCompatActivity() {
         }
 
 
-        this.id = intent.getStringExtra("STUDENT_ID")
+        this.student_index = intent.getIntExtra("STUDENT_INDEX", -1)
 
-        if (this.id == null) {
+        if (this.student_index == -1) {
             this.returnHome()
             return
         }
 
-        val student = Model.shared.students.find { it.id ==  this.id }
+        val student = Model.shared.students[this.student_index]
 
-        if (student == null) {
-            this.returnHome()
-            return
-        }
-
-        this.binding?.nameTextView?.text = student.name
-        this.binding?.idTextView?.text = student.id
-        this.binding?.phoneTextView?.text = student.phone
-        this.binding?.addressTextView?.text = student.address
-        this.binding?.checked?.isChecked = student.isChecked
-    }
-
-    fun getStudentIndex(): Int {
-        return Model.shared.students.indexOfFirst { it.id == this.id }
+        this.binding?.nameEditText?.setText(student.name ?: "")
+        this.binding?.idEditText?.setText(student.id ?: "")
+        this.binding?.phoneEditText?.setText(student.phone ?: "")
+        this.binding?.addressEditText?.setText(student.address ?: "")
+        this.binding?.checked?.isChecked = student.isChecked ?: false
     }
 
     fun onCancel(view: View) {
@@ -67,12 +59,12 @@ class EditStudentActivity : AppCompatActivity() {
             id = this.binding?.idEditText?.text.toString(),
             isChecked = this.binding?.checked?.isChecked ?: false
         )
-        Model.shared.students[this.getStudentIndex()] = updatedStudent
+        Model.shared.students[this.student_index] = updatedStudent
         returnHome()
     }
 
     fun onDelete(view: View) {
-        Model.shared.students.removeAt(this.getStudentIndex())
+        Model.shared.students.removeAt(this.student_index)
         returnHome()
     }
 

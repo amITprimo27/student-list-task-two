@@ -1,15 +1,12 @@
 package com.example.student_list_task_two
 
+import android.content.Intent
 import android.os.Bundle
-import android.widget.Button
-import android.widget.CheckBox
-import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.student_list_task_two.databinding.ActivityStudentDetailsBinding
-import com.example.student_list_task_two.databinding.ActivityStudentsListBinding
 import com.example.student_list_task_two.models.Model
 
 class StudentDetailsActivity : AppCompatActivity() {
@@ -40,7 +37,9 @@ class StudentDetailsActivity : AppCompatActivity() {
         binding?.studentDetailsCheckbox?.isChecked = student.isChecked ?: false
 
         binding?.studentDetailsEditBtn?.setOnClickListener {
-            // TODO - Navigate to an EditActivity
+            val intent: Intent = Intent(this, EditStudentActivity::class.java)
+            intent.putExtra("STUDENT_INDEX", index)
+            startActivity(intent)
         }
     }
 }
