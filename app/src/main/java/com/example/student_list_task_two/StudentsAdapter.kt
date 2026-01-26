@@ -1,5 +1,6 @@
 package com.example.student_list_task_two
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -20,5 +21,11 @@ class StudentsAdapter(
 
     override fun onBindViewHolder(holder: StudentRowViewHolder, position: Int) {
         holder.bind(students[position], position)
+
+        holder.itemView.setOnClickListener {
+            val intent = Intent(holder.itemView.context, StudentDetailsActivity::class.java)
+            intent.putExtra("STUDENT_INDEX", position)
+            holder.itemView.context.startActivity(intent)
+        }
     }
 }
