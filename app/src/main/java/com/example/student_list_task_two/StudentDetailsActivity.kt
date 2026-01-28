@@ -30,13 +30,13 @@ class StudentDetailsActivity : AppCompatActivity() {
         }
 
         val student = Model.shared.students[index]
-        binding?.studentDetailsName?.text = "Name: ${student.name}"
-        binding?.studentDetailsId?.text = "ID: ${student.id}"
-        binding?.studentDetailsPhone?.text = "Phone: ${student.phone}"
-        binding?.studentDetailsAddress?.text = "Address: ${student.address}"
-        binding?.studentDetailsCheckbox?.isChecked = student.isChecked ?: false
+        binding?.nameTextView?.text= "Name: ${student.name}"
+        binding?.idTextView?.text = "ID: ${student.id}"
+        binding?.phoneTextView?.text = "Phone: ${student.phone}"
+        binding?.addressTextView?.text = "Address: ${student.address}"
+        binding?.checked?.isChecked = student.isChecked ?: false
 
-        binding?.studentDetailsEditBtn?.setOnClickListener {
+        binding?.editBtn?.setOnClickListener {
             val intent: Intent = Intent(this, EditStudentActivity::class.java)
             intent.putExtra("STUDENT_INDEX", index)
             startActivity(intent)
