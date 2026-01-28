@@ -16,7 +16,7 @@ import com.example.student_list_task_two.models.Student
 
 class EditStudentActivity : AppCompatActivity() {
     var binding: ActivityEditStudentBinding? = null
-    var student_index: Int = -1
+    var studentIndex: Int = -1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,14 +31,14 @@ class EditStudentActivity : AppCompatActivity() {
         }
 
 
-        this.student_index = intent.getIntExtra("STUDENT_INDEX", -1)
+        this.studentIndex = intent.getIntExtra("STUDENT_INDEX", -1)
 
-        if (this.student_index == -1) {
+        if (this.studentIndex == -1) {
             this.returnHome()
             return
         }
 
-        val student = Model.shared.students[this.student_index]
+        val student = Model.shared.students[this.studentIndex]
 
         this.binding?.nameEditText?.setText(student.name ?: "")
         this.binding?.idEditText?.setText(student.id ?: "")
@@ -59,12 +59,12 @@ class EditStudentActivity : AppCompatActivity() {
             id = this.binding?.idEditText?.text.toString(),
             isChecked = this.binding?.checked?.isChecked ?: false
         )
-        Model.shared.students[this.student_index] = updatedStudent
+        Model.shared.students[this.studentIndex] = updatedStudent
         returnHome()
     }
 
     fun onDelete(view: View) {
-        Model.shared.students.removeAt(this.student_index)
+        Model.shared.students.removeAt(this.studentIndex)
         returnHome()
     }
 
